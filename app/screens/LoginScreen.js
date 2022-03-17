@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen({ }) {
-    const [loginFailed, setLoginFailed] = useState(fase);
+    const [loginFailed, setLoginFailed] = useState(false);
 
     const handleSubmit = ({ email, password }) => {
         console.log(email, password);

@@ -1,13 +1,10 @@
-import { StyleSheet, View } from 'react-native';
-import AppButton from './app/components/AppButton';
-import AppTextInput from './app/components/forms/AppTextInput';
+import { StyleSheet, Text, View } from 'react-native';
+import LoginScreen from './app/screens/LoginScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <AppTextInput placeholder='Username' icon='email' />
-    </View>
+    <LoginScreen />
   );
 }
 

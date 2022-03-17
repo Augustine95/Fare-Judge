@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground, Image, Text } from 'react-native';
 
-import AppButton from '../components/AppButton';
+import Button from '../components/Button';
 import colors from '../config/colors';
 
 export default function WelcomeScreen({ }) {
@@ -16,8 +16,8 @@ export default function WelcomeScreen({ }) {
                 <Text style={styles.tagline}>Love It, Review It</Text>
             </View>
             <View style={styles.buttonsContainer}>
-                <AppButton title='Login' />
-                <AppButton title='Register' color='secondary' />
+                <Button title='Login' />
+                <Button title='Register' color='secondary' />
             </View>
         </ImageBackground>
     )
