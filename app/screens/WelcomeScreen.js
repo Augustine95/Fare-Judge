@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         top: 0,
         height: 150,
         width: 150,
-        borderRadius: 49
+        borderRadius: 75
     },
     logoContainer: {
         alignItems: 'center',

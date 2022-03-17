@@ -9,5 +9,10 @@ export default {
         flex: 1,
         fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
         fontSize: 18,
+    },
+    logo: {
+        borderRadius: 75,
+        height: 150,
+        width: 150,
     }
 }
