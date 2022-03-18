@@ -1,9 +1,11 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
-import { Form, FormField, SubmitButton } from "../components/forms";
+import { Form, FormField, FormPicker, SubmitButton } from "../components/forms";
+import EstablishmentPickerItem from "../components/EstablishmentPickerItem";
 import Screen from "../components/Screen";
+import useLocation from "../hooks/useLocation";
 
 const validationSchema = Yup.object().shape({
     id: Yup.string().required().label("Id"),
@@ -12,12 +14,21 @@ const validationSchema = Yup.object().shape({
         .required()
         .nullable()
         .label("Establishment Type"),
-    foodType: Yup.object().required().nullable().label("Food Type"),
-    location: Yup.object().required().nullable().label("Establishment Location"),
+    foodType: Yup.string().required().label("Food Type"),
+    location: Yup.string().required().label("Establishment Location"),
     description: Yup.string().label("Description"),
 });
 
+const establishmentTypes = [
+    { label: 'Bar', value: 1, icon: 'beer-outline', backgroundColor: 'dodgerblue' },
+    { label: 'Cafe', value: 2, icon: 'tea-outline', backgroundColor: 'gold' },
+    { label: 'Restaurant', value: 3, icon: 'silverware-variant', backgroundColor: 'pink' },
+];
+
 export default function ReviewEditScreen({ }) {
+    const location = useLocation();
+    console.log("LOCATION", location);
+
     const handleSubmit = (values) => {
         console.log(values);
     };
@@ -29,8 +40,8 @@ export default function ReviewEditScreen({ }) {
                     id: "",
                     establishmentName: "",
                     establishmentType: null,
-                    foodType: null,
-                    location: null,
+                    foodType: '',
+                    location: '',
                     description: "",
                 }}
                 onSubmit={handleSubmit}
@@ -45,10 +56,30 @@ export default function ReviewEditScreen({ }) {
                     name="id"
                     placeholder="Id"
                     secureTextEntry
-                    width="50%"
                 />
-                {/* establishment type picker component */}
-                {/* food type picker component */}
+                <FormField
+                    autoCorrect={false}
+                    icon='city'
+                    maxLength={255}
+                    name="establishmentName"
+                    placeholder="Establishment Name"
+                    width='70%'
+                />
+                <FormPicker
+                    PickerItemComponent={EstablishmentPickerItem}
+                    items={establishmentTypes}
+                    name='establishmentType'
+                    numberOfColumns={3}
+                    placeholder='Establishment Type'
+                    width='50%'
+                />
+                <FormField
+                    autoCorrect={false}
+                    icon='silverware-fork-knife'
+                    name="foodType"
+                    placeholder='Food Type'
+                    width='50%'
+                />
                 <FormField
                     autoCorrect={false}
                     icon='map-marker'

@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
-import LoginScreen from './app/screens/LoginScreen';
-import WelcomeScreen from './app/screens/WelcomeScreen';
+import { StyleSheet } from 'react-native';
+
+import RegisterScreen from './app/screens/RegisterScreen';
+import ReviewEditScreen from './app/screens/ReviewEditScreen';
 
 export default function App() {
   return (
-    <LoginScreen />
+    <ReviewEditScreen />
   );
 }
 
