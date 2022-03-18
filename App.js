@@ -1,19 +1,9 @@
-import { StyleSheet } from 'react-native';
-
-import RegisterScreen from './app/screens/RegisterScreen';
-import ReviewEditScreen from './app/screens/ReviewEditScreen';
+import Card from './app/components/Card';
+import Screen from './app/components/Screen';
+import EstablishmentsScreen from './app/screens/EstablishmentsScreen';
 
 export default function App() {
   return (
-    <ReviewEditScreen />
+    <EstablishmentsScreen />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     },
     locationContainer: {
         flexDirection: 'row',
+        alignItems: 'center'
     },
     name: {
         textTransform: 'uppercase',
