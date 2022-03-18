@@ -12,7 +12,7 @@ import defaultStyles from "../config/styles";
 import Screen from "../components/Screen";
 
 const validationSchema = Yup.object().shape({
-    username: Yup.string().required().email().label("Username"),
+    email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().min(4).label("Password"),
 });
 
@@ -68,5 +68,6 @@ const styles = StyleSheet.create({
     },
     logo: {
         alignSelf: "center",
+        marginBottom: 40
     },
 });
