@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-    Button,
     View,
     StyleSheet,
     Text,
@@ -57,7 +56,14 @@ export default function Picker({
                 visible={modalVisible}
             >
                 <Screen>
-                    <Button title="Close" onPress={() => setModalVisible(false)} />
+                    <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+                        <MaterialCommunityIcons
+                            color={colors.primary}
+                            name="close-thick"
+                            size={40}
+                            style={styles.closeIcon}
+                        />
+                    </TouchableWithoutFeedback>
                     <FlatList
                         data={items}
                         keyExtractor={(item) => item.value.toString()}
@@ -79,6 +85,9 @@ export default function Picker({
 }
 
 const styles = StyleSheet.create({
+    closeIcon: {
+        alignSelf: "center",
+    },
     container: {
         backgroundColor: colors.light,
         borderRadius: 25,
