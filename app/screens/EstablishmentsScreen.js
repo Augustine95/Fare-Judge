@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import Card from "../components/Card";
+import NoResultsNotice from "../components/NoResultsNotice";
 
 import Screen from "../components/Screen";
 import TextInput from "../components/TextInput";
@@ -29,14 +30,14 @@ const initialEstablishments = [
   },
 ];
 
-export default function EstablishmentsScreen({}) {
+export default function EstablishmentsScreen({ }) {
   const [establishments, setEstablishments] = useState(initialEstablishments);
   const [query, setQuery] = useState("");
 
   const filtered = query
     ? establishments.filter((e) =>
-        e.name.toLowerCase().startsWith(query.toLowerCase())
-      )
+      e.name.toLowerCase().startsWith(query.toLowerCase())
+    )
     : establishments;
 
   return (
@@ -46,11 +47,13 @@ export default function EstablishmentsScreen({}) {
         placeholder="Search here..."
         onChangeText={setQuery}
       />
-      <FlatList
-        data={filtered}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <Card item={item} />}
-      />
+      {filtered.length === 0 ? <NoResultsNotice /> :
+        <FlatList
+          data={filtered}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <Card item={item} />}
+        />
+      }
     </Screen>
   );
 }

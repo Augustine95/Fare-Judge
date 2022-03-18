@@ -1,10 +1,13 @@
-import Card from './app/components/Card';
-import Screen from './app/components/Screen';
+import React from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+
 import AccountScreen from './app/screens/AccountScreen';
-import EstablishmentsScreen from './app/screens/EstablishmentsScreen';
+import AppNavigator from './app/navigation/AppNavigator';
 
 export default function App() {
   return (
-    <AccountScreen />
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }
