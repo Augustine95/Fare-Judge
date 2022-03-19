@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Form, FormField, FormPicker, SubmitButton } from "../components/forms";
 import EstablishmentPickerItem from "../components/EstablishmentPickerItem";
 import Screen from "../components/Screen";
-import useLocation from "../hooks/useLocation";
 
 const validationSchema = Yup.object().shape({
     id: Yup.string().required().label("Id"),
@@ -25,9 +24,28 @@ const establishmentTypes = [
     { label: 'Restaurant', value: 3, icon: 'silverware-variant', backgroundColor: 'pink' },
 ];
 
-export default function ReviewEditScreen({ }) {
-    const location = useLocation();
-    console.log("LOCATION", location);
+export default function ReviewEditScreen({ route }) {
+    const getValues = () => {
+        const details = route.params;
+
+        const values = {
+            id: "",
+            establishmentName: "",
+            establishmentType: null,
+            foodType: '',
+            location: '',
+            description: "",
+        };
+
+        if (!details) return values;
+
+        const { establishment: { id, location, name }, foodType } = details;
+        values.id = id.toString();
+        values.foodType = foodType;
+        values.location = location;
+        values.establishmentName = name;
+        return values;
+    }
 
     const handleSubmit = (values) => {
         console.log(values);
@@ -36,21 +54,13 @@ export default function ReviewEditScreen({ }) {
     return (
         <Screen style={styles.container}>
             <Form
-                initialValues={{
-                    id: "",
-                    establishmentName: "",
-                    establishmentType: null,
-                    foodType: '',
-                    location: '',
-                    description: "",
-                }}
+                initialValues={getValues()}
                 onSubmit={handleSubmit}
                 validationSchema={validationSchema}
             >
                 <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
-                    autoFocus
                     icon='account-key'
                     maxLength={255}
                     name="id"

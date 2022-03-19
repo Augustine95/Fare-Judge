@@ -9,8 +9,9 @@ import ListItemSeparator from "../components/lists/ListItemSeparator";
 import ListItem from "../components/lists/ListItem";
 import SectionLabel from "../components/SectionLabel";
 import Icon from "../components/Icon";
+import routes from "../navigation/routes";
 
-export default function EstablishmentDetailsScreen({ onDelete, route }) {
+export default function EstablishmentDetailsScreen({ navigation, route }) {
   const [showFoods, setShowFoods] = useState(true);
 
   const { id, foods, name, location, image } = route.params;
@@ -44,7 +45,12 @@ export default function EstablishmentDetailsScreen({ onDelete, route }) {
             renderItem={({ item }) => (
               <ListItem
                 title={item.name}
-                onPress={() => console.log("navigate to Esta Edit Screen")}
+                onPress={() =>
+                  navigation.navigate(routes.REVIEW_EDIT, {
+                    establishment: { id, location, name },
+                    foodType: item.name,
+                  })
+                }
                 key={item.name}
                 IconComponent={
                   <Icon
@@ -57,7 +63,7 @@ export default function EstablishmentDetailsScreen({ onDelete, route }) {
             )}
           />
         )}
-        <Button title="Delete" onPress={() => onDelete(id)} />
+        <Button title="Delete" onPress={() => console.log(id)} />
       </View>
     </ScrollView>
   );
