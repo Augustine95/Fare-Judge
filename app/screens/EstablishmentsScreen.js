@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
+
 import Card from "../components/Card";
 import NoResultsNotice from "../components/NoResultsNotice";
-
+import routes from "../navigation/routes";
 import Screen from "../components/Screen";
 import TextInput from "../components/TextInput";
 
@@ -12,32 +13,98 @@ const initialEstablishments = [
     name: "Cool Bar",
     location: "Los Angeles",
     image: require("../../assets/bar.jpg"),
-    type: "Bar",
+    foods: [
+      {
+        name: "Nachos",
+        icon: {
+          name: "glass-cocktail",
+          backgroundColor: "#fcba03",
+        },
+      },
+      {
+        name: "Wings",
+        icon: {
+          name: "circle-outline",
+          backgroundColor: "#fce703",
+        },
+      },
+      {
+        name: "Quesadillas",
+        icon: {
+          name: "glass-wine",
+          backgroundColor: "#bafc03",
+        },
+      },
+      {
+        name: "Artichoke dip",
+        icon: {
+          name: "coffee-outline",
+          backgroundColor: "#be03fc",
+        },
+      },
+    ],
   },
   {
     id: 2,
     name: "Fast Food Restaurant",
     location: "Nairobi",
     image: require("../../assets/restaurant.jpg"),
-    type: "Restaurant",
+    foods: [
+      {
+        name: "Smoked Pork",
+        icon: {
+          name: "glass-cocktail",
+          backgroundColor: "#fcba03",
+        },
+      },
+      {
+        name: "Sushi",
+        icon: {
+          name: "glass-cocktail",
+          backgroundColor: "#fce703",
+        },
+      },
+    ],
   },
   {
     id: 3,
     name: "McDonald",
     image: require("../../assets/cafe.jpg"),
     location: "Beverly Hills",
-    type: "Cafe",
+    foods: [
+      {
+        name: "Coffee",
+        icon: {
+          name: "glass-cocktail",
+          backgroundColor: "#fcba03",
+        },
+      },
+      {
+        name: "Tea",
+        icon: {
+          name: "glass-cocktail",
+          backgroundColor: "#fce703",
+        },
+      },
+      {
+        name: "Donuts",
+        icon: {
+          name: "glass-cocktail",
+          backgroundColor: "#fcba03",
+        },
+      },
+    ],
   },
 ];
 
-export default function EstablishmentsScreen({ }) {
+export default function EstablishmentsScreen({ navigation }) {
   const [establishments, setEstablishments] = useState(initialEstablishments);
   const [query, setQuery] = useState("");
 
   const filtered = query
     ? establishments.filter((e) =>
-      e.name.toLowerCase().startsWith(query.toLowerCase())
-    )
+        e.name.toLowerCase().startsWith(query.toLowerCase())
+      )
     : establishments;
 
   return (
@@ -47,13 +114,22 @@ export default function EstablishmentsScreen({ }) {
         placeholder="Search here..."
         onChangeText={setQuery}
       />
-      {filtered.length === 0 ? <NoResultsNotice /> :
+      {filtered.length === 0 ? (
+        <NoResultsNotice />
+      ) : (
         <FlatList
           data={filtered}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <Card item={item} />}
+          renderItem={({ item }) => (
+            <Card
+              item={item}
+              onPress={() =>
+                navigation.navigate(routes.ESTABLISHMENT_DETAILS, item)
+              }
+            />
+          )}
         />
-      }
+      )}
     </Screen>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, FlatList } from "react-native";
+import { View, StyleSheet, Image, FlatList, ScrollView } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import AppText from "../components/Text";
@@ -10,41 +10,16 @@ import ListItem from "../components/lists/ListItem";
 import SectionLabel from "../components/SectionLabel";
 import Icon from "../components/Icon";
 
-const items = [
-  {
-    title: "Beer",
-    icon: {
-      name: "email",
-      backgroundColor: colors.secondary,
-    },
-    price: 50,
-  },
-  {
-    title: "Hennesy",
-    icon: {
-      name: "email",
-      backgroundColor: colors.secondary,
-    },
-    price: 20,
-  },
-  {
-    title: "Vodka",
-    icon: {
-      name: "email",
-      backgroundColor: colors.danger,
-    },
-    price: 10,
-  },
-];
-
-export default function EstablishmentDetailsScreen() {
+export default function EstablishmentDetailsScreen({ onDelete, route }) {
   const [showFoods, setShowFoods] = useState(true);
 
+  const { id, foods, name, location, image } = route.params;
+
   return (
-    <>
-      <Image style={styles.image} source={require("../../assets/cafe.jpg")} />
+    <ScrollView>
+      <Image style={styles.image} source={image} />
       <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>Cool Bar</AppText>
+        <AppText style={styles.title}>{name}</AppText>
         <View style={styles.locationContainer}>
           <MaterialCommunityIcons
             style={styles.locationIcon}
@@ -52,7 +27,7 @@ export default function EstablishmentDetailsScreen() {
             size={25}
             color={colors.secondary}
           />
-          <AppText style={styles.location}>Nairobi</AppText>
+          <AppText style={styles.location}>{location}</AppText>
         </View>
       </View>
       <View style={styles.body}>
@@ -65,11 +40,12 @@ export default function EstablishmentDetailsScreen() {
           <FlatList
             ItemSeparatorComponent={ListItemSeparator}
             keyExtractor={(item) => item.title}
-            data={items}
+            data={foods}
             renderItem={({ item }) => (
               <ListItem
-                title={item.title}
+                title={item.name}
                 onPress={() => console.log("navigate to Esta Edit Screen")}
+                key={item.name}
                 IconComponent={
                   <Icon
                     name={item.icon.name}
@@ -81,9 +57,9 @@ export default function EstablishmentDetailsScreen() {
             )}
           />
         )}
-        <Button title="Delete" onPress={() => {}} />
+        <Button title="Delete" onPress={() => onDelete(id)} />
       </View>
-    </>
+    </ScrollView>
   );
 }
 

@@ -1,22 +1,24 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import Text from './Text';
 import colors from '../config/colors';
 
-export default function Card({ item }) {
+export default function Card({ item, onPress }) {
     return (
-        <View style={styles.container}>
-            <Image resizeMode='cover' style={styles.image} source={item.image} />
-            <View style={styles.detailsContainer}>
-                <Text style={styles.name}>{item.name}</Text>
-                <View style={styles.locationContainer}>
-                    <MaterialCommunityIcons style={styles.icon} name='map-marker' size={20} color={colors.secondary} />
-                    <Text style={styles.location}>{item.location}</Text>
+        <TouchableWithoutFeedback onPress={onPress}>
+            <View style={styles.container}>
+                <Image resizeMode='cover' style={styles.image} source={item.image} />
+                <View style={styles.detailsContainer}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <View style={styles.locationContainer}>
+                        <MaterialCommunityIcons style={styles.icon} name='map-marker' size={20} color={colors.secondary} />
+                        <Text style={styles.location}>{item.location}</Text>
+                    </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     )
 }
 

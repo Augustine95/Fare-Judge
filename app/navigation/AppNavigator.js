@@ -7,6 +7,7 @@ import EstablishmentsScreen from '../screens/EstablishmentsScreen';
 import NewReviewButton from './NewReviewButton';
 import ReviewEditScreen from '../screens/ReviewEditScreen';
 import routes from "./routes";
+import FeedNavigator from './FeedNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,7 +15,7 @@ const AppNavigator = () => {
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }}>
             <Tab.Screen
-                component={EstablishmentsScreen}
+                component={FeedNavigator}
                 name={routes.FEED}
                 options={{
                     tabBarIcon: ({ color, size }) =>
