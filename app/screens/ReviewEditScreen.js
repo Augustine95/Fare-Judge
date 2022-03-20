@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
@@ -24,19 +24,24 @@ const establishmentTypes = [
     { label: 'Restaurant', value: 3, icon: 'silverware-variant', backgroundColor: 'pink' },
 ];
 
+const initialValues = {
+    id: "",
+    establishmentName: "",
+    establishmentType: null,
+    foodType: '',
+    location: '',
+    description: "",
+};
+
 export default function ReviewEditScreen({ route }) {
-    const getValues = () => {
+    const [values, setValues] = useState(initialValues);
+
+    useEffect(() => {
+        setValues(getValues());
+    }, []);
+
+    function getValues() {
         const details = route.params;
-
-        const values = {
-            id: "",
-            establishmentName: "",
-            establishmentType: null,
-            foodType: '',
-            location: '',
-            description: "",
-        };
-
         if (!details) return values;
 
         const { establishment: { id, location, name }, foodType } = details;
