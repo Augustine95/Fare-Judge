@@ -19,17 +19,27 @@ const validationSchema = Yup.object().shape({
 });
 
 const establishmentTypes = [
-    { label: 'Bar', value: 1, icon: 'beer-outline', backgroundColor: 'dodgerblue' },
-    { label: 'Cafe', value: 2, icon: 'tea-outline', backgroundColor: 'gold' },
-    { label: 'Restaurant', value: 3, icon: 'silverware-variant', backgroundColor: 'pink' },
+    {
+        label: "Bar",
+        value: 1,
+        icon: "beer-outline",
+        backgroundColor: "dodgerblue",
+    },
+    { label: "Cafe", value: 2, icon: "tea-outline", backgroundColor: "gold" },
+    {
+        label: "Restaurant",
+        value: 3,
+        icon: "silverware-variant",
+        backgroundColor: "pink",
+    },
 ];
 
 const initialValues = {
     id: "",
     establishmentName: "",
     establishmentType: null,
-    foodType: '',
-    location: '',
+    foodType: "",
+    location: "",
     description: "",
 };
 
@@ -41,15 +51,27 @@ export default function ReviewEditScreen({ route }) {
     }, []);
 
     function getValues() {
-        const details = route.params;
-        if (!details) return values;
+        return (route.params) ? mapToViewModel() : values;
+    }
 
-        const { establishment: { id, location, name }, foodType } = details;
-        values.id = id.toString();
-        values.foodType = foodType;
-        values.location = location;
-        values.establishmentName = name;
-        return values;
+    function mapToViewModel() {
+        const {
+            establishment: { id, location, name, typeValue },
+            foodType,
+        } = route.params;
+
+        return {
+            id: id.toString(),
+            establishmentName: name,
+            establishmentType: getType(typeValue),
+            foodType,
+            location,
+            description: "",
+        };
+    }
+
+    function getType(value) {
+        return establishmentTypes.find((t) => t.value === value);
     }
 
     const handleSubmit = (values) => {
@@ -66,7 +88,7 @@ export default function ReviewEditScreen({ route }) {
                 <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
-                    icon='account-key'
+                    icon="account-key"
                     maxLength={255}
                     name="id"
                     placeholder="Id"
@@ -74,33 +96,33 @@ export default function ReviewEditScreen({ route }) {
                 />
                 <FormField
                     autoCorrect={false}
-                    icon='city'
+                    icon="city"
                     maxLength={255}
                     name="establishmentName"
                     placeholder="Establishment Name"
-                    width='70%'
+                    width="70%"
                 />
                 <FormPicker
                     PickerItemComponent={EstablishmentPickerItem}
                     items={establishmentTypes}
-                    name='establishmentType'
+                    name="establishmentType"
                     numberOfColumns={3}
-                    placeholder='Establishment Type'
-                    width='50%'
+                    placeholder="Establishment Type"
+                    width="50%"
                 />
                 <FormField
                     autoCorrect={false}
-                    icon='silverware-fork-knife'
+                    icon="silverware-fork-knife"
                     name="foodType"
-                    placeholder='Food Type'
-                    width='50%'
+                    placeholder="Food Type"
+                    width="50%"
                 />
                 <FormField
                     autoCorrect={false}
-                    icon='map-marker'
+                    icon="map-marker"
                     name="location"
-                    placeholder='Location'
-                    width='50%'
+                    placeholder="Location"
+                    width="50%"
                 />
                 <FormField
                     maxLength={255}
@@ -109,7 +131,7 @@ export default function ReviewEditScreen({ route }) {
                     numberOfLines={3}
                     placeholder="Description"
                 />
-                <SubmitButton title='Post' onPress={handleSubmit} />
+                <SubmitButton title="Post" onPress={handleSubmit} />
             </Form>
         </Screen>
     );
@@ -117,6 +139,6 @@ export default function ReviewEditScreen({ route }) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10
+        padding: 10,
     },
 });

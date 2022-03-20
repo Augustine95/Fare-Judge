@@ -14,7 +14,7 @@ import routes from "../navigation/routes";
 export default function EstablishmentDetailsScreen({ navigation, route }) {
   const [showFoods, setShowFoods] = useState(true);
 
-  const { id, foods, name, location, image } = route.params;
+  const { typeValue, id, foods, name, location, image } = route.params;
 
   return (
     <ScrollView>
@@ -47,7 +47,7 @@ export default function EstablishmentDetailsScreen({ navigation, route }) {
                 title={item.name}
                 onPress={() =>
                   navigation.navigate(routes.REVIEW_EDIT, {
-                    establishment: { id, location, name },
+                    establishment: { id, location, name, typeValue },
                     foodType: item.name,
                   })
                 }

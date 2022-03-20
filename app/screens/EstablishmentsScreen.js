@@ -43,6 +43,7 @@ const initialEstablishments = [
         },
       },
     ],
+    typeValue: 1
   },
   {
     id: 2,
@@ -65,6 +66,7 @@ const initialEstablishments = [
         },
       },
     ],
+    typeValue: 2
   },
   {
     id: 3,
@@ -94,6 +96,7 @@ const initialEstablishments = [
         },
       },
     ],
+    typeValue: 3
   },
 ];
 
@@ -103,8 +106,8 @@ export default function EstablishmentsScreen({ navigation }) {
 
   const filtered = query
     ? establishments.filter((e) =>
-        e.name.toLowerCase().startsWith(query.toLowerCase())
-      )
+      e.name.toLowerCase().startsWith(query.toLowerCase())
+    )
     : establishments;
 
   return (
