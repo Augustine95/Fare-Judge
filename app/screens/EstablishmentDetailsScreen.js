@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, Image, FlatList, ScrollView } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-import { deleteEstablishment } from '../services/establishmentsService';
 import AppText from "../components/Text";
-import Button from '../components/Button';
 import colors from "../config/colors";
 import Icon from "../components/Icon";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
@@ -19,9 +17,11 @@ export default function EstablishmentDetailsScreen({ navigation, route }) {
 
   const { typeValue, id, foods, name, location, image, reviews } = route.params;
 
-  const handleEstablishmentDelete = () => {
-    deleteEstablishment(id);
-    navigation.navigate(routes.FEED);
+  const handleReviewEditNavigation = item => {
+    navigation.navigate(routes.REVIEW_EDIT, {
+      establishment: { id, location, name, typeValue },
+      foodType: item.name,
+    })
   };
 
   return (
@@ -57,12 +57,7 @@ export default function EstablishmentDetailsScreen({ navigation, route }) {
               renderItem={({ item }) => (
                 <ListItem
                   title={item.name}
-                  onPress={() =>
-                    navigation.navigate(routes.REVIEW_EDIT, {
-                      establishment: { id, location, name, typeValue },
-                      foodType: item.name,
-                    })
-                  }
+                  onPress={() => handleReviewEditNavigation(item)}
                   key={item.name}
                   IconComponent={
                     <Icon
@@ -91,14 +86,12 @@ export default function EstablishmentDetailsScreen({ navigation, route }) {
                 key={item.review + item.reviewerId}
                 image={require('../../assets/user.png')}
                 title={getUser(item.reviewerId).name}
-                onPress={() => { }}
                 subTitle={item.review}
               />
             )
             }
           />
         )}
-        <Button title='Delete' onPress={handleEstablishmentDelete} />
       </View>
     </ScrollView>
   );

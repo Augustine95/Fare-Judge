@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import { Form, FormField, FormPicker, SubmitButton } from "../components/forms";
-import { getEstablishmentType, getEstablishmentTypes } from '../services/establishmentTypesService';
+import {
+    getEstablishmentType,
+    getEstablishmentTypes,
+} from "../services/establishmentTypesService";
 import { getEstablishment } from "../services/establishmentsService";
 import EstablishmentPickerItem from "../components/EstablishmentPickerItem";
 import Screen from "../components/Screen";
 import routes from "../navigation/routes";
+import UploadScreen from "./UploadScreen";
 
 const validationSchema = Yup.object().shape({
     id: Yup.string().required().label("Id"),
@@ -34,13 +38,15 @@ const user = { id: 10, name: "Augustine Awuori", reviews: [] };
 
 export default function ReviewEditScreen({ navigation, route }) {
     const [values, setValues] = useState(initialValues);
+    const [progress, setProgress] = useState(0);
+    const [uploadVisible, setUploadVisible] = useState(false);
 
     // useEffect(() => {
     //     setValues(getValues());
     // });
 
     function getValues() {
-        return (route.params) ? mapToViewModel() : values;
+        return route.params ? mapToViewModel() : values;
     }
 
     function mapToViewModel() {
@@ -59,28 +65,39 @@ export default function ReviewEditScreen({ navigation, route }) {
         };
     }
 
-    const handleSubmit = ({ description, foodType, id }) => {
+    const handleSubmit = ({ description, foodType, id }, { resetForm }) => {
+        setProgress(0);
+        setUploadVisible(true);
         const establishment = getEstablishment(id);
+
         if (!establishment)
-            return Alert.alert("REVIEW NOT SENT", "No establishment with the given ID was found", [
-                { text: "Ok" }
-            ]);
+            return Alert.alert(
+                "REVIEW NOT SENT",
+                `No establishment with the ID of ${id} was found`,
+                [{ text: "Ok" }]
+            );
 
         const review = {
             establishmentId: id,
             foodType,
             reviewerId: user.id,
-            review: description
+            review: description,
         };
         establishment.reviews.push(review);
         user.reviews.push(review);
 
-        setValues(initialValues);
-        navigation.navigate(routes.FEED);
+        setProgress(1)
+
+        resetForm();
     };
 
     return (
         <Screen style={styles.container}>
+            <UploadScreen
+                onDone={() => setUploadVisible(false)}
+                progress={progress}
+                visible={uploadVisible}
+            />
             <Form
                 initialValues={getValues()}
                 onSubmit={handleSubmit}

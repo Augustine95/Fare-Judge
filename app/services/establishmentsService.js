@@ -118,9 +118,9 @@ const reviewEstablishment = (establishmentId, review) => {
 };
 
 const getEstablishmentReviews = id => {
-  const establishment = getEstablishment(id);
-  if (!establishment) return null;
-  return establishment.reviews;
+    const establishment = getEstablishment(id);
+    if (!establishment) return null;
+    return establishment.reviews;
 };
 
 export {
