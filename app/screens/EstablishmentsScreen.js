@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Alert, FlatList, StyleSheet } from "react-native";
 
 import Card from "../components/Card";
@@ -6,106 +6,18 @@ import NoResultsNotice from "../components/NoResultsNotice";
 import routes from "../navigation/routes";
 import Screen from "../components/Screen";
 import TextInput from "../components/TextInput";
-
-const initialEstablishments = [
-  {
-    id: 1,
-    name: "Cool Bar",
-    location: "Los Angeles",
-    image: require("../../assets/bar.jpg"),
-    foods: [
-      {
-        name: "Nachos",
-        icon: {
-          name: "glass-cocktail",
-          backgroundColor: "#fcba03",
-        },
-      },
-      {
-        name: "Wings",
-        icon: {
-          name: "circle-outline",
-          backgroundColor: "#fce703",
-        },
-      },
-      {
-        name: "Quesadillas",
-        icon: {
-          name: "glass-wine",
-          backgroundColor: "#bafc03",
-        },
-      },
-      {
-        name: "Artichoke dip",
-        icon: {
-          name: "coffee-outline",
-          backgroundColor: "#be03fc",
-        },
-      },
-    ],
-    typeValue: 1
-  },
-  {
-    id: 2,
-    name: "Fast Food Restaurant",
-    location: "Nairobi",
-    image: require("../../assets/restaurant.jpg"),
-    foods: [
-      {
-        name: "Smoked Pork",
-        icon: {
-          name: "glass-cocktail",
-          backgroundColor: "#fcba03",
-        },
-      },
-      {
-        name: "Sushi",
-        icon: {
-          name: "glass-cocktail",
-          backgroundColor: "#fce703",
-        },
-      },
-    ],
-    typeValue: 2
-  },
-  {
-    id: 3,
-    name: "McDonald",
-    image: require("../../assets/cafe.jpg"),
-    location: "Beverly Hills",
-    foods: [
-      {
-        name: "Coffee",
-        icon: {
-          name: "glass-cocktail",
-          backgroundColor: "#fcba03",
-        },
-      },
-      {
-        name: "Tea",
-        icon: {
-          name: "glass-cocktail",
-          backgroundColor: "#fce703",
-        },
-      },
-      {
-        name: "Donuts",
-        icon: {
-          name: "glass-cocktail",
-          backgroundColor: "#fcba03",
-        },
-      },
-    ],
-    typeValue: 3
-  },
-];
+import {getEstablishments} from "../services/establishmentsService";
 
 export default function EstablishmentsScreen({ navigation }) {
-  const [establishments, setEstablishments] = useState(initialEstablishments);
+  const [establishments, setEstablishments] = useState([]);
   const [query, setQuery] = useState("");
 
-  const handleDelete = ({ id }) => {
-    Alert.alert("Delete", "Are you sure you want to delete this establishment?", [
+  useEffect(() => {
+    setEstablishments(getEstablishments());
+  }, []);
+
+  const handleDelete = ({ id, name }) => {
+    Alert.alert("Delete", `Are you sure you want to delete ${name} establishment?`, [
       { text: "Yes", onPress: () => deleteEstablishment(id) },
       { text: "No" }
     ]);

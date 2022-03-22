@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import { Form, FormField, FormPicker, SubmitButton } from "../components/forms";
+import { getEstablishmentType, getEstablishmentTypes } from '../services/establishmentTypesService';
 import EstablishmentPickerItem from "../components/EstablishmentPickerItem";
 import Screen from "../components/Screen";
 
@@ -17,22 +18,6 @@ const validationSchema = Yup.object().shape({
     location: Yup.string().required().label("Establishment Location"),
     description: Yup.string().label("Description"),
 });
-
-const establishmentTypes = [
-    {
-        label: "Bar",
-        value: 1,
-        icon: "beer-outline",
-        backgroundColor: "dodgerblue",
-    },
-    { label: "Cafe", value: 2, icon: "tea-outline", backgroundColor: "gold" },
-    {
-        label: "Restaurant",
-        value: 3,
-        icon: "silverware-variant",
-        backgroundColor: "pink",
-    },
-];
 
 const initialValues = {
     id: "",
@@ -63,19 +48,15 @@ export default function ReviewEditScreen({ route }) {
         return {
             id: id.toString(),
             establishmentName: name,
-            establishmentType: getType(typeValue),
+            establishmentType: getEstablishmentType(typeValue),
             foodType,
             location,
             description: "",
         };
     }
 
-    function getType(value) {
-        return establishmentTypes.find((t) => t.value === value);
-    }
-
     const handleSubmit = (values) => {
-        console.log(values);
+
     };
 
     return (
@@ -104,7 +85,7 @@ export default function ReviewEditScreen({ route }) {
                 />
                 <FormPicker
                     PickerItemComponent={EstablishmentPickerItem}
-                    items={establishmentTypes}
+                    items={getEstablishmentTypes()}
                     name="establishmentType"
                     numberOfColumns={3}
                     placeholder="Establishment Type"

@@ -4,7 +4,6 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import AppText from "../components/Text";
 import colors from "../config/colors";
-import Button from "../components/Button";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import ListItem from "../components/lists/ListItem";
 import SectionLabel from "../components/SectionLabel";
