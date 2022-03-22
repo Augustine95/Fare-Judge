@@ -3,11 +3,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import AccountScreen from '../screens/AccountScreen';
-import EstablishmentsScreen from '../screens/EstablishmentsScreen';
 import NewReviewButton from './NewReviewButton';
 import ReviewEditScreen from '../screens/ReviewEditScreen';
 import routes from "./routes";
 import FeedNavigator from './FeedNavigator';
+import AccountNavigator from './AccountNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +33,7 @@ const AppNavigator = () => {
                 })}
             />
             <Tab.Screen
-                component={AccountScreen}
+                component={AccountNavigator}
                 name={routes.ACCOUNT}
                 options={{
                     tabBarIcon: ({ color, size }) =>
