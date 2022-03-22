@@ -104,9 +104,9 @@ export default function EstablishmentsScreen({ navigation }) {
   const [establishments, setEstablishments] = useState(initialEstablishments);
   const [query, setQuery] = useState("");
 
-  const handleDelete = establishment => {
+  const handleDelete = ({ id }) => {
     Alert.alert("Delete", "Are you sure you want to delete this establishment?", [
-      { text: "Yes", onPress: () => deleteEstablishment(establishment.id) },
+      { text: "Yes", onPress: () => deleteEstablishment(id) },
       { text: "No" }
     ]);
   };

@@ -63,7 +63,6 @@ export default function EstablishmentDetailsScreen({ navigation, route }) {
             )}
           />
         )}
-        <Button title="Delete" onPress={() => console.log(id)} />
       </View>
     </ScrollView>
   );
