@@ -5,9 +5,9 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Text from './Text';
 import colors from '../config/colors';
 
-export default function Card({ item, onPress }) {
+export default function Card({ item, onPress, onLongPress }) {
     return (
-        <TouchableWithoutFeedback onPress={onPress}>
+        <TouchableWithoutFeedback onPress={onPress} onLongPress={onLongPress}>
             <View style={styles.container}>
                 <Image resizeMode='cover' style={styles.image} source={item.image} />
                 <View style={styles.detailsContainer}>

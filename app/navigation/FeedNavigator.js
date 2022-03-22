@@ -7,7 +7,7 @@ import routes from "./routes";
 
 const Stack = createStackNavigator();
 
-export default function FeedNavigator({ onDelete }) {
+export default function FeedNavigator() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name={routes.FEED} component={EstablishmentsScreen} />

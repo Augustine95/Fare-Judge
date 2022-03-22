@@ -48,7 +48,7 @@ export default function ReviewEditScreen({ route }) {
 
     useEffect(() => {
         setValues(getValues());
-    }, []);
+    });
 
     function getValues() {
         return (route.params) ? mapToViewModel() : values;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { Alert, FlatList, StyleSheet } from "react-native";
 
 import Card from "../components/Card";
 import NoResultsNotice from "../components/NoResultsNotice";
@@ -104,6 +104,17 @@ export default function EstablishmentsScreen({ navigation }) {
   const [establishments, setEstablishments] = useState(initialEstablishments);
   const [query, setQuery] = useState("");
 
+  const handleDelete = establishment => {
+    Alert.alert("Delete", "Are you sure you want to delete this establishment?", [
+      { text: "Yes", onPress: () => deleteEstablishment(establishment.id) },
+      { text: "No" }
+    ]);
+  };
+
+  function deleteEstablishment(id) {
+    setEstablishments(establishments.filter(e => e.id !== id));
+  }
+
   const filtered = query
     ? establishments.filter((e) =>
       e.name.toLowerCase().startsWith(query.toLowerCase())
@@ -129,6 +140,8 @@ export default function EstablishmentsScreen({ navigation }) {
               onPress={() =>
                 navigation.navigate(routes.ESTABLISHMENT_DETAILS, item)
               }
+              onLongPress={() => handleDelete(item)}
+              key={item.id}
             />
           )}
         />
