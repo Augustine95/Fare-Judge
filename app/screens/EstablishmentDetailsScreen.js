@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { View, StyleSheet, Image, FlatList, ScrollView } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
+import { deleteEstablishment } from '../services/establishmentsService';
 import AppText from "../components/Text";
+import Button from '../components/Button';
 import colors from "../config/colors";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import ListItem from "../components/lists/ListItem";
@@ -14,6 +16,11 @@ export default function EstablishmentDetailsScreen({ navigation, route }) {
   const [showFoods, setShowFoods] = useState(true);
 
   const { typeValue, id, foods, name, location, image } = route.params;
+
+  const handleEstablishmentDelete = () => {
+    deleteEstablishment(id);
+    navigation.navigate(routes.FEED);
+  };
 
   return (
     <ScrollView>
@@ -62,6 +69,7 @@ export default function EstablishmentDetailsScreen({ navigation, route }) {
             )}
           />
         )}
+        <Button title='Delete' onPress={handleEstablishmentDelete}/>
       </View>
     </ScrollView>
   );

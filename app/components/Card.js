@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         width: '100%',
         overflow: 'hidden',
-        marginBottom: 10
+        marginBottom: 20
     },
     detailsContainer: {
         padding: 20
