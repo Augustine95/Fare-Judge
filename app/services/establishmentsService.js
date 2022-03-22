@@ -1,6 +1,6 @@
 let establishments = [
     {
-        id: 1,
+        id: "1",
         name: "Cool Bar",
         location: "Los Angeles",
         image: require("../../assets/bar.jpg"),
@@ -38,7 +38,7 @@ let establishments = [
         reviews: []
     },
     {
-        id: 2,
+        id: "2",
         name: "Fast Food Restaurant",
         location: "Nairobi",
         image: require("../../assets/restaurant.jpg"),
@@ -62,7 +62,7 @@ let establishments = [
         reviews: []
     },
     {
-        id: 3,
+        id: "3",
         name: "McDonald",
         image: require("../../assets/cafe.jpg"),
         location: "Beverly Hills",
@@ -99,8 +99,9 @@ const getEstablishments = () => {
 };
 
 const getEstablishment = id => {
-    for (let i = 0; i < establishments.length; i++)
+    for (let i = 0; i < establishments.length; i++) {
         if (establishments[i].id === id) return establishments[i];
+    }
     return null;
 };
 

@@ -14,7 +14,7 @@ export default function EstablishmentsScreen({ navigation }) {
 
   useEffect(() => {
     setEstablishments(getEstablishments());
-  }, [establishments]);
+  }, []);
 
   const handleDelete = ({ id, name }) => {
     Alert.alert("Delete", `Are you sure you want to delete ${name} establishment?`, [
