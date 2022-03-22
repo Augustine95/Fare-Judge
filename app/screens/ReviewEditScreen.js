@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Alert, StyleSheet} from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import { Form, FormField, FormPicker, SubmitButton } from "../components/forms";
@@ -60,23 +60,23 @@ export default function ReviewEditScreen({ navigation, route }) {
     }
 
     const handleSubmit = ({ description, foodType, id }) => {
-       const establishment = getEstablishment(id);
-       if (!establishment)
-           return Alert.alert("REVIEW FAILED", "No establishment with the given ID was found", [
-               { text: "Ok" }
-           ]);
+        const establishment = getEstablishment(id);
+        if (!establishment)
+            return Alert.alert("REVIEW NOT SENT", "No establishment with the given ID was found", [
+                { text: "Ok" }
+            ]);
 
-       const review = {
-           establishmentId: id,
-           foodType,
-           reviewerId: user.id,
-           review: description
-       };
-       establishment.reviews.push(review);
-       user.reviews.push(review);
+        const review = {
+            establishmentId: id,
+            foodType,
+            reviewerId: user.id,
+            review: description
+        };
+        establishment.reviews.push(review);
+        user.reviews.push(review);
 
-       setValues(initialValues);
-       navigation.navigate(routes.FEED);
+        setValues(initialValues);
+        navigation.navigate(routes.FEED);
     };
 
     return (
@@ -93,7 +93,7 @@ export default function ReviewEditScreen({ navigation, route }) {
                     maxLength={255}
                     name="id"
                     placeholder="Id"
-                    secureTextEntry
+                // secureTextEntry
                 />
                 <FormField
                     autoCorrect={false}

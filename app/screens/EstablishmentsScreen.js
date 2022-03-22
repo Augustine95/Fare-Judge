@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, FlatList, StyleSheet } from "react-native";
 
 import Card from "../components/Card";
@@ -6,7 +6,7 @@ import NoResultsNotice from "../components/NoResultsNotice";
 import routes from "../navigation/routes";
 import Screen from "../components/Screen";
 import TextInput from "../components/TextInput";
-import {getEstablishments} from "../services/establishmentsService";
+import { getEstablishments } from "../services/establishmentsService";
 
 export default function EstablishmentsScreen({ navigation }) {
   const [establishments, setEstablishments] = useState([]);
