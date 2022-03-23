@@ -1,23 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
 
+import useAuth from '../auth/useAuth';
 import { getEstablishment } from '../services/establishmentsService';
 import ListItem from '../components/lists/ListItem';
 import ListItemDeleteAction from '../components/lists/ListItemDeleteAction';
 import ListItemSeparator from '../components/lists/ListItemSeparator';
-
-const user = {
-    id: "123",
-    name: "Augustine Awuori",
-    image: require('../../assets/user.png'),
-    reviews: [
-        {
-            establishmentId: "1",
-            foodType: "Fish",
-            review: "This is so cool"
-        }
-    ]
-};
 
 const getEstablishmentById = id => {
     const establishment = getEstablishment(id);
@@ -26,15 +14,16 @@ const getEstablishmentById = id => {
 
 export default function MyReviewsScreen({ }) {
     const [reviews, setReviews] = useState([]);
+    const { user } = useAuth();
 
     useEffect(() => {
         setReviews(user.reviews);
     }, []);
 
-    const handleReviewDelete = review =>
-        setReviews([...reviews].filter(
-            r => r.establishmentId !== review.establishmentId && r.description !== review.description)
-        );
+    const handleReviewDelete = review => {
+        const newReviews = [...reviews].filter(r => r.id !== review.id);
+        setReviews(newReviews);
+    }
 
     return (
         <FlatList

@@ -12,7 +12,7 @@ export default useAuth = () => {
     };
 
     const logIn = values => {
-        setUser(values);
+        setUser({ ...values, reviews: [] });
         // setUser(jwtDecode(authToken));
         // authStorage.storeToken(authToken);
     };

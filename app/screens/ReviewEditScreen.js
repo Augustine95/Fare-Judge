@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
@@ -10,8 +10,8 @@ import {
 import { getEstablishment } from "../services/establishmentsService";
 import EstablishmentPickerItem from "../components/EstablishmentPickerItem";
 import Screen from "../components/Screen";
-import routes from "../navigation/routes";
 import UploadScreen from "./UploadScreen";
+import useAuth from "../auth/useAuth";
 
 const validationSchema = Yup.object().shape({
     id: Yup.string().required().label("Id"),
@@ -34,16 +34,15 @@ const initialValues = {
     description: "",
 };
 
-const user = { id: 10, name: "Augustine Awuori", reviews: [] };
-
 export default function ReviewEditScreen({ navigation, route }) {
     const [values, setValues] = useState(initialValues);
     const [progress, setProgress] = useState(0);
     const [uploadVisible, setUploadVisible] = useState(false);
+    const { user } = useAuth();
 
-    // useEffect(() => {
-    //     setValues(getValues());
-    // });
+    useEffect(() => {
+        setValues(getValues());
+    }, []);
 
     function getValues() {
         return route.params ? mapToViewModel() : values;
@@ -70,14 +69,17 @@ export default function ReviewEditScreen({ navigation, route }) {
         setUploadVisible(true);
         const establishment = getEstablishment(id);
 
-        if (!establishment)
+        if (!establishment) {
+            setProgress(1)
             return Alert.alert(
                 "REVIEW NOT SENT",
                 `No establishment with the ID of ${id} was found`,
                 [{ text: "Ok" }]
             );
+        }
 
         const review = {
+            id: Date.now(),
             establishmentId: id,
             foodType,
             reviewerId: user.id,
@@ -86,7 +88,9 @@ export default function ReviewEditScreen({ navigation, route }) {
         establishment.reviews.push(review);
         user.reviews.push(review);
 
-        setProgress(1)
+        setTimeout(() => {
+            setProgress(1)
+        }, 700);
 
         resetForm();
     };
