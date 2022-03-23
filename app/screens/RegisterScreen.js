@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
+import useAuth from "../auth/useAuth";
 
 import { ErrorMessage, Form, FormField, SubmitButton } from "../components/forms";
 import Screen from '../components/Screen';
@@ -13,9 +14,10 @@ const validationSchema = Yup.object().shape({
 
 export default function RegisterScreen({ }) {
     const [registrationFailed, setRegistrationFailed] = useState(false);
+    const auth = useAuth();
 
     const handleSubmit = (values) => {
-        console.log(values);
+        auth.logIn(values);
     };
 
     return (

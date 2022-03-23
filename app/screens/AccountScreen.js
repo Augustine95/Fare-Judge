@@ -4,14 +4,10 @@ import ListItem from "../components/lists/ListItem";
 
 import colors from "../config/colors";
 import Screen from "../components/Screen";
-import ListItemSeparator from '../components/lists/ListItemSeparator';
-import Icon from '../components/Icon';
+import ListItemSeparator from "../components/lists/ListItemSeparator";
+import Icon from "../components/Icon";
 import routes from "../navigation/routes";
-
-const user = {
-    name: "Augustine Awuori",
-    email: "augustineawuori95@gmail.com",
-};
+import useAuth from "../auth/useAuth";
 
 const menuItems = [
     {
@@ -20,11 +16,13 @@ const menuItems = [
             name: "email",
             backgroundColor: colors.secondary,
         },
-        target: routes.MY_REVIEWS
-    }
+        target: routes.MY_REVIEWS,
+    },
 ];
 
 export default function AccountScreen({ navigation }) {
+    const { user, logOut } = useAuth();
+
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
@@ -37,11 +35,16 @@ export default function AccountScreen({ navigation }) {
             <View style={styles.container}>
                 <FlatList
                     data={menuItems}
-                    keyExtractor={item => item.title}
+                    keyExtractor={(item) => item.title}
                     ItemSeparatorComponent={ListItemSeparator}
                     renderItem={({ item }) => (
                         <ListItem
-                            IconComponent={<Icon name={item.icon.name} backgroundColor={item.icon.backgroundColor} />}
+                            IconComponent={
+                                <Icon
+                                    name={item.icon.name}
+                                    backgroundColor={item.icon.backgroundColor}
+                                />
+                            }
                             title={item.title}
                             onPress={() => navigation.navigate(item.target)}
                         />
@@ -49,9 +52,9 @@ export default function AccountScreen({ navigation }) {
                 />
             </View>
             <ListItem
-                title='Log out'
-                IconComponent={<Icon name='logout' backgroundColor="#ffe66d" />}
-                onPress={() => { }}
+                title="Log out"
+                IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+                onPress={() => logOut()}
             />
         </Screen>
     );

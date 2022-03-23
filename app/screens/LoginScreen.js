@@ -10,6 +10,7 @@ import {
 } from "../components/forms";
 import defaultStyles from "../config/styles";
 import Screen from "../components/Screen";
+import useAuth from "../auth/useAuth";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
@@ -18,9 +19,10 @@ const validationSchema = Yup.object().shape({
 
 export default function LoginScreen({ }) {
     const [loginFailed, setLoginFailed] = useState(false);
+    const auth = useAuth();
 
-    const handleSubmit = ({ email, password }) => {
-        console.log(email, password);
+    const handleSubmit = (values) => {
+        auth.logIn(values);
     };
 
     return (
